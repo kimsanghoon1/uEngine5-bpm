@@ -7,6 +7,7 @@ public class ActivityInfo extends BusinessEvent{
 
     private String instanceId;
     private String tracingTag;
+    private Object result;
 
     public void setInstanceId(String instanceId) {
         this.instanceId = instanceId;
@@ -24,4 +25,11 @@ public class ActivityInfo extends BusinessEvent{
         return tracingTag;
     }
 
+    public Object getResult() {
+        return result;
+    }
+
+    public void setResult(Object result) {
+        this.result = result;
+    }
 }

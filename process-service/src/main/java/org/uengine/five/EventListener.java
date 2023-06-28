@@ -1,118 +1,99 @@
 package org.uengine.five;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
+import org.springframework.kafka.annotation.EnableKafkaStreams;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MimeTypeUtils;
-import org.uengine.five.events.*;
+import org.uengine.five.events.ActivityDone;
+import org.uengine.five.events.ActivityFailed;
+import org.uengine.five.events.ActivityInfo;
+import org.uengine.five.events.ActivityQueued;
+import org.uengine.five.events.DefinitionDeployed;
 import org.uengine.five.framework.ProcessTransactional;
 import org.uengine.five.overriding.ActivityQueue;
 import org.uengine.five.overriding.ServiceRegisterDeployFilter;
 import org.uengine.five.service.DefinitionServiceUtil;
 import org.uengine.five.service.InstanceServiceImpl;
-import org.uengine.kernel.DefaultProcessInstance;
+import org.uengine.kernel.Activity;
 import org.uengine.kernel.ProcessDefinition;
 import org.uengine.kernel.ProcessInstance;
 import org.uengine.kernel.ReceiveActivity;
-import org.uengine.kernel.Activity;
-
 import org.uengine.kernel.UEngineException;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
 @Component
+@EnableBinding(Streams.class)
 public class EventListener {
 
     @Autowired
     InstanceServiceImpl instanceService;
 
-    @Autowired
-    Streams streams;
+    // @Autowired
+    // Streams streams;
 
     @Autowired
     ActivityQueue activityQueue;
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @StreamListener(Streams.INPUT)
+    public void handlePython(@Payload byte[] message) {
+        logger.info("***************************");
+        String messageStr = new String(message);
+        logger.info(messageStr);
+        logger.info("***************************");
+    }
+
     @StreamListener(Streams.INPUT)
     public void handleDone(@Payload ActivityDone activityDone) {
-
+        logger.info("***************************");
+        logger.info("handleDone");
+        logger.info("***************************");
         if(!activityDone.checkMyEvent()) return;
-
         System.out.println("Received: ");
-
-
         ProcessInstance instance = instanceService.getProcessInstanceLocal(activityDone.getActivityInfo().getInstanceId());
-
         try {
             Activity activity = instance.getProcessDefinition(false).getActivity(activityDone.getActivityInfo().getTracingTag());
-
             if(activity instanceof ReceiveActivity){
-                ((ReceiveActivity)activity).fireReceived(instance, activityDone.getResult());
+                ((ReceiveActivity)activity).fireReceived(instance, activityDone.getActivityInfo().getResult());
             }
-            instance.execute(activityQueued.getActivityInfo().getTracingTag());
-
-            ActivityDone activityDone = new ActivityDone();
-            activityDone.setActivityInfo(new ActivityInfo());
-            activityDone.getActivityInfo().setInstanceId(activityQueued.getActivityInfo().getInstanceId());
-            activityDone.getActivityInfo().setTracingTag(activityQueued.getActivityInfo().getTracingTag());
-
-            MessageChannel messageChannel = streams.outboundChannel();
-            messageChannel.send(MessageBuilder
-                    .withPayload(activityDone)
-                    .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
-                    .build());
+            // instance.execute(activity.getActivityDetails().getTracingTag());
+            // ActivityDone activityDone = new ActivityDone();
+            // activityDone.setActivityInfo(new ActivityInfo());
+            // activityDone.getActivityInfo().setInstanceId(activityQueued.getActivityInfo().getInstanceId());
+            // activityDone.getActivityInfo().setTracingTag(activityQueued.getActivityInfo().getTracingTag());
+            // MessageChannel messageChannel = streams.outboundChannel();
+            // messageChannel.send(MessageBuilder
+            //         .withPayload(activityDone)
+            //         .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
+            //         .build());
 
 
         }catch(Exception e){
-
-            ActivityFailed activityFailed = new ActivityFailed();
-            activityFailed.setActivityInfo(new ActivityInfo());
-            activityFailed.getActivityInfo().setInstanceId(activityQueued.getActivityInfo().getInstanceId());
-            activityFailed.getActivityInfo().setTracingTag(activityQueued.getActivityInfo().getTracingTag());
-
-            StringWriter stringWriter = new StringWriter();
-            PrintWriter printWriter = new PrintWriter(stringWriter);
-            e.printStackTrace(printWriter);
-            activityFailed.setMessage("[" + e.getClass().getName() + "]" + e.getMessage() + ":" + stringWriter.toString());
-
-            MessageChannel messageChannel = streams.outboundChannel();
-            messageChannel.send(MessageBuilder
-                    .withPayload(activityFailed)
-                    .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
-                    .build());
-
-
-            //// retry
-            Activity activity = instance.getProcessDefinition().getActivity(activityFailed.getActivityInfo().getTracingTag());
-            if(activity.isQueuingEnabled()){
-
-                int retryDelay = activity.getRetryDelay()>0 ? activity.getRetryDelay():30;
-                int retryLimit = activity.getRetryLimit()>0 ? activity.getRetryLimit():5;
-
-                int currRetryCount = activity.getRetryCount(instance);
-                if(currRetryCount < retryLimit){
-                    Thread.sleep(retryDelay * 1000); /// fixme :  changed to use Timer that tries in different thread.
-
-                    activityQueue.queue(instance.getInstanceId(), activity.getTracingTag(), currRetryCount, null);
-                    activity.setRetryCount(instance, currRetryCount + 1);
-                }
-
-            }
+            // StackTrace
+            System.out.println(e);
+            
         }
-
-    }
 
     }
 
     @StreamListener(Streams.INPUT)
     @ProcessTransactional
     public void handleFailed(@Payload ActivityFailed activityFailed) throws Exception {
-
+        logger.info("***************************");
+        logger.info("activityFailed");
+        logger.info("***************************");
         if(!activityFailed.checkMyEvent()) return;
 
         try {
@@ -129,11 +110,11 @@ public class EventListener {
     @StreamListener(Streams.INPUT)
     @ProcessTransactional
     public void handleQueued(@Payload ActivityQueued activityQueued) throws Exception {
-
+        logger.info("***************************");
+        logger.info("activityQueued");
+        logger.info("***************************");
         if(!activityQueued.checkMyEvent()) return;
-
         ProcessInstance instance = instanceService.getProcessInstanceLocal(activityQueued.getActivityInfo().getInstanceId());
-
         try {
             instance.execute(activityQueued.getActivityInfo().getTracingTag());
 
@@ -142,11 +123,11 @@ public class EventListener {
             activityDone.getActivityInfo().setInstanceId(activityQueued.getActivityInfo().getInstanceId());
             activityDone.getActivityInfo().setTracingTag(activityQueued.getActivityInfo().getTracingTag());
 
-            MessageChannel messageChannel = streams.outboundChannel();
-            messageChannel.send(MessageBuilder
-                    .withPayload(activityDone)
-                    .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
-                    .build());
+            // MessageChannel messageChannel = streams.outboundChannel();
+            // messageChannel.send(MessageBuilder
+            //         .withPayload(activityDone)
+            //         .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
+            //         .build());
 
 
         }catch(Exception e){
@@ -161,11 +142,11 @@ public class EventListener {
             e.printStackTrace(printWriter);
             activityFailed.setMessage("[" + e.getClass().getName() + "]" + e.getMessage() + ":" + stringWriter.toString());
 
-            MessageChannel messageChannel = streams.outboundChannel();
-            messageChannel.send(MessageBuilder
-                    .withPayload(activityFailed)
-                    .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
-                    .build());
+            // MessageChannel messageChannel = streams.outboundChannel();
+            // messageChannel.send(MessageBuilder
+            //         .withPayload(activityFailed)
+            //         .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
+            //         .build());
 
 
             //// retry
@@ -191,6 +172,9 @@ public class EventListener {
     @StreamListener(Streams.INPUT)
     @ProcessTransactional
     public void handleDeployed(@Payload DefinitionDeployed definitionDeployed) {
+        logger.info("***************************");
+        logger.info("definitionDeployed");
+        logger.info("***************************");
         if(!definitionDeployed.checkMyEvent()) return;
 
         String definitionPath = definitionDeployed.getDefintionId();

@@ -32,13 +32,17 @@ spring:
         bpm-topic:
           destination: bpm.topic
           contentType: application/json
-          
+        python:
+          destination: bpm.python
+          contentType: application/json
+        # java:
+        #   destination: bpm.java
+        #   contentType: application/json
 
 logging:
   level:
     org.hibernate.type: trace
     org.springframework.cloud: debug
-
 
 server:
   port: 9094
@@ -61,8 +65,10 @@ spring:
                 value:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
-
         bpm-topic:
           destination: bpm.topic
+          contentType: application/json
+        python:
+          destination: bpm.python
           contentType: application/json
           

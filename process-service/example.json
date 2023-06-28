@@ -1,0 +1,128 @@
+{
+    "definition": {
+      "_type": "org.uengine.kernel.ProcessDefinition",
+      "name": {
+        "text": "example"
+      },
+      "retryDelay": 60,
+      "isDynamicChangeAllowed": true,
+      "childActivities": [
+        "java.util.ArrayList",
+        [
+          {
+            "_type": "org.uengine.kernel.bpmn.StartEvent",
+            "name": "",
+            "tracingTag": "1",
+            "selected": false,
+            "elementView": {
+              "_type": "org.uengine.kernel.view.DefaultActivityView",
+              "id": "7772b764-9427-0d19-da5f-457a57d50eba",
+              "x": 315,
+              "y": 255,
+              "width": 30,
+              "height": 30,
+              "style": "{\"stroke\":\"black\",\"fill-r\":\".5\",\"fill-cx\":\".5\",\"fill-cy\":\".5\",\"fill\":\"white\",\"fill-opacity\":0,\"label-position\":\"bottom\",\"label-width\":120,\"stroke-width\":1.5,\"cursor\":\"move\"}",
+              "parent": null
+            }
+          },
+          {
+            "_type": "org.uengine.kernel.bpmn.EndEvent",
+            "name": "",
+            "tracingTag": "2",
+            "selected": false,
+            "elementView": {
+              "_type": "org.uengine.kernel.view.DefaultActivityView",
+              "id": "d9c8341d-56a9-db47-9dfa-4c68d32b8e34",
+              "x": 545,
+              "y": 256,
+              "width": 30,
+              "height": 30,
+              "style": "{\"stroke\":\"black\",\"fill-r\":\".5\",\"fill-cx\":\".5\",\"fill-cy\":\".5\",\"fill\":\"white\",\"fill-opacity\":0,\"label-position\":\"bottom\",\"stroke-width\":3,\"label-width\":120,\"cursor\":\"move\"}",
+              "parent": null
+            }
+          },
+          {
+            "_type": "org.uengine.kernel.DefaultActivity",
+            "name": "",
+            "selected": false,
+            "tracingTag": "3",
+            "elementView": {
+              "_type": "org.uengine.kernel.view.DefaultActivityView",
+              "id": "67e4c9b3-b538-d417-7101-1dec18167c5b",
+              "x": 436,
+              "y": 256,
+              "width": 100,
+              "height": 70,
+              "style": "{\"stroke\":\"black\",\"fill-r\":1,\"fill-cx\":0.1,\"fill-cy\":0.1,\"fill\":\"#FFFFFF\",\"fill-opacity\":0,\"label-position\":\"center\",\"stroke-width\":1.2,\"r\":\"10\",\"cursor\":\"move\"}",
+              "parent": null
+            }
+          }
+        ]
+      ],
+      "sequenceFlows": [
+        {
+          "name": "",
+          "selected": false,
+          "sourceRef": "1",
+          "targetRef": "3",
+          "from": "7772b764-9427-0d19-da5f-457a57d50eba",
+          "to": "67e4c9b3-b538-d417-7101-1dec18167c5b",
+          "priority": 1,
+          "relationView": {
+            "style": "{\"stroke\":\"black\",\"fill-r\":\".5\",\"fill-cx\":\".5\",\"fill-cy\":\".5\",\"fill\":\"none\",\"fill-opacity\":0,\"label-position\":\"center\",\"stroke-width\":1.5,\"stroke-opacity\":1,\"edge-type\":\"plain\",\"arrow-start\":\"none\",\"arrow-end\":\"block\",\"stroke-dasharray\":\"\",\"stroke-linejoin\":\"round\",\"cursor\":\"pointer\"}",
+            "value": "[[330,256],[386,256]]",
+            "id": "a5b58fdc-3e40-e093-dc36-f98b0e1d3b81"
+          },
+          "condition": {
+            "_type": "org.uengine.kernel.Evaluate",
+            "pv": {
+              "_type": "org.uengine.kernel.ProcessVariable",
+              "name": ""
+            },
+            "condition": "==",
+            "val": ""
+          }
+        },
+        {
+          "name": "",
+          "selected": false,
+          "sourceRef": "3",
+          "targetRef": "2",
+          "from": "67e4c9b3-b538-d417-7101-1dec18167c5b",
+          "to": "d9c8341d-56a9-db47-9dfa-4c68d32b8e34",
+          "priority": 1,
+          "relationView": {
+            "style": "{\"stroke\":\"black\",\"fill-r\":\".5\",\"fill-cx\":\".5\",\"fill-cy\":\".5\",\"fill\":\"none\",\"fill-opacity\":0,\"label-position\":\"center\",\"stroke-width\":1.5,\"stroke-opacity\":1,\"edge-type\":\"plain\",\"arrow-start\":\"none\",\"arrow-end\":\"block\",\"stroke-dasharray\":\"\",\"stroke-linejoin\":\"round\",\"cursor\":\"pointer\"}",
+            "value": "[[486,256],[530,256]]",
+            "id": "6577f292-fa3a-c524-57cd-b4970d419bcd"
+          },
+          "condition": {
+            "_type": "org.uengine.kernel.Evaluate",
+            "pv": {
+              "_type": "org.uengine.kernel.ProcessVariable",
+              "name": ""
+            },
+            "condition": "==",
+            "val": ""
+          }
+        }
+      ],
+      "defaultFlowchartViewType": "swimlane",
+      "defaultFlowchartViewOption": "vertical",
+      "duration": 10,
+      "simulationInstanceCount": 10,
+      "simulationInputFrequency": 10,
+      "archive": true,
+      "id": "keyboard.xml",
+      "isAdhoc": true,
+      "shortDescription": {
+        "localedTexts": {
+          "_type": "java.util.HashMap",
+          "ko": ""
+        }
+      },
+      "initiateByFirstWorkitem": true,
+      "adhoc": true,
+      "dynamicChangeAllowed": true
+    }
+  }

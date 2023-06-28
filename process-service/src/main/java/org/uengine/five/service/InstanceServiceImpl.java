@@ -6,13 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.interfaces.*;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.TextNode;
-import com.fasterxml.jackson.databind.node.ValueNode;
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.QueryParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -31,7 +26,6 @@ import org.uengine.five.framework.ProcessTransactional;
 import org.uengine.five.overriding.JPAProcessInstance;
 import org.uengine.five.repository.ProcessInstanceRepository;
 import org.uengine.five.repository.ServiceEndpointRepository;
-import org.uengine.five.spring.SecurityAwareServletFilter;
 import org.uengine.kernel.*;
 import org.uengine.kernel.bpmn.CatchingRestMessageEvent;
 import org.uengine.kernel.bpmn.SendTask;
@@ -39,8 +33,10 @@ import org.uengine.kernel.bpmn.SignalEventInstance;
 import org.uengine.kernel.bpmn.SignalIntermediateCatchEvent;
 import org.uengine.util.UEngineUtil;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.QueryParam;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.TextNode;
+import com.fasterxml.jackson.databind.node.ValueNode;
 
 /**
  * Created by uengine on 2017. 8. 9..
@@ -56,25 +52,22 @@ public class InstanceServiceImpl implements InstanceService {
 
     @Autowired
     DefinitionServiceUtil definitionService;
-
-
-
     // ----------------- execution services -------------------- //
     @RequestMapping(value = "/instance", method = {RequestMethod.POST, RequestMethod.PUT})
     @Transactional(rollbackFor={Exception.class})
     @ProcessTransactional
     public InstanceResource runDefinition(@RequestParam("defPath") String filePath, @QueryParam("simulation") boolean simulation) throws Exception {
-
+             // 실행 Logic
              //FIXME:  remove me
-             String userId = SecurityAwareServletFilter.getUserId();
-             GlobalContext.setUserId(userId);
+             //  String userId = SecurityAwareServletFilter.getUserId();
+             //  GlobalContext.setUserId(userId);
              //   
         
         Object definition = definitionService.getDefinition(filePath, !simulation); //if simulation time, use the version under construction
-
+        System.out.println(definition);
         if(definition instanceof ProcessDefinition){
             ProcessDefinition processDefinition = (ProcessDefinition) definition;
-
+            System.out.println(processDefinition);
             org.uengine.kernel.ProcessInstance instance = applicationContext.getBean(
                     org.uengine.kernel.ProcessInstance.class,
                     //new Object[]{
@@ -83,10 +76,10 @@ public class InstanceServiceImpl implements InstanceService {
                     null
                     //}
             );
-
+            System.out.println("Start?");
             instance.execute();
-
-            return new InstanceResource(instance); //TODO: returns HATEOAS _self link instead.
+            System.out.println("Check");    
+            return null; //TODO: returns HATEOAS _self link instead.
         }
         return null;
 
@@ -160,9 +153,9 @@ public class InstanceServiceImpl implements InstanceService {
     @RequestMapping(value = "/instance/{instanceId}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     @ProcessTransactional(readOnly = true)
     public InstanceResource getInstance(@PathVariable("instanceId") String instanceId) throws Exception {
-
+        System.out.println(instanceId);
         ProcessInstance instance = getProcessInstanceLocal(instanceId);
-
+        System.out.println(instance);
         if(instance==null) throw new ResourceNotFoundException(); // make 404 error
 
 
@@ -209,7 +202,6 @@ public class InstanceServiceImpl implements InstanceService {
      * @return
      */
     public ProcessInstance getProcessInstanceLocal(String instanceId) {
-
         ProcessInstance instance = ProcessTransactionContext.getThreadLocalInstance().getProcessInstanceInTransaction(instanceId);
         if (instance != null) {
             return instance;

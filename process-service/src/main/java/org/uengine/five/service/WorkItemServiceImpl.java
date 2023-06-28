@@ -73,7 +73,6 @@ public class WorkItemServiceImpl {
                 }
             }
         }
-
         if (parameterValues.size() > 0) {
             workItem.setParameterValues(parameterValues);
         }

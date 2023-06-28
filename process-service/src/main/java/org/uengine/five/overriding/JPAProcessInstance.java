@@ -73,14 +73,11 @@ public class JPAProcessInstance extends DefaultProcessInstance implements Transa
             setPrototype(true);
             return;
         }
-
         if (instanceId == null) {
-
             setNewInstance(true);
             setProcessInstanceEntity(new ProcessInstanceEntity());
             getProcessInstanceEntity().setName(instanceId);
             getProcessInstanceEntity().setDefId(procDefinition.getId());
-
             getProcessInstanceEntity().setStatus(Activity.STATUS_READY);
             getProcessInstanceEntity().setDefName(procDefinition.getName());
 
@@ -131,8 +128,7 @@ public class JPAProcessInstance extends DefaultProcessInstance implements Transa
     // ApplicationEventPublisher applicationEventPublisher; //TODO see the DefinitionService.beforeProcessInstanceCommit() and move to here someday
     @PostConstruct
     public void init() throws Exception {
-
-        if (isPrototype())
+              if (isPrototype())
             return;
 
         if (isNewInstance()) { // if new instance, create one

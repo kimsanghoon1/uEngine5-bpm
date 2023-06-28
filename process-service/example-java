@@ -1,0 +1,287 @@
+[
+    "org.uengine.kernel.ProcessDefinition",
+    {
+      "name": [
+        "org.uengine.contexts.TextContext",
+        {
+          "text": "Noname"
+        }
+      ],
+      "retryDelay": 60,
+      "isDynamicChangeAllowed": true,
+      "childActivities": [
+        "java.util.ArrayList",
+        [
+          [
+            "org.uengine.kernel.bpmn.StartEvent",
+            {
+              "name": [
+                "org.uengine.contexts.TextContext",
+                {
+                  "text": "start"
+                }
+              ],
+              "tracingTag": "1",
+              "retryDelay": 60,
+              "isDynamicChangeAllowed": true,
+              "dynamicChangeAllowed": true
+            }
+          ],
+          [
+            "org.uengine.five.rpa.RPAActivity",
+            {
+              "name": [
+                "org.uengine.contexts.TextContext",
+                {
+                  "text": "act2"
+                }
+              ],
+              "tracingTag": "2",
+              "retryDelay": 60,
+              "isDynamicChangeAllowed": true,
+              "parameters": [
+                "[Lorg.uengine.kernel.ParameterContext;",
+                [
+                  [
+                    "org.uengine.kernel.ParameterContext",
+                    {
+                      "argument": [
+                        "org.uengine.contexts.TextContext",
+                        {
+                          "text": "url"
+                        }
+                      ],
+                      "variable": [
+                        "org.uengine.kernel.ProcessVariable",
+                        {
+                          "name": "url",
+                          "displayName": [
+                            "org.uengine.contexts.TextContext",
+                            {}
+                          ],
+                          "defaultValue": ""
+                        }
+                      ]
+                    }
+                  ],
+                  [
+                    "org.uengine.kernel.ParameterContext",
+                    {
+                      "argument": [
+                        "org.uengine.contexts.TextContext",
+                        {
+                          "text": "alias"
+                        }
+                      ],
+                      "variable": [
+                        "org.uengine.kernel.ProcessVariable",
+                        {
+                          "name": "alias",
+                          "displayName": [
+                            "org.uengine.contexts.TextContext",
+                            {}
+                          ],
+                          "defaultValue": ""
+                        }
+                      ]
+                    }
+                  ],
+                  [
+                    "org.uengine.kernel.ParameterContext",
+                    {
+                      "argument": [
+                        "org.uengine.contexts.TextContext",
+                        {
+                          "text": "browser"
+                        }
+                      ],
+                      "variable": [
+                        "org.uengine.kernel.ProcessVariable",
+                        {
+                          "name": "browser",
+                          "displayName": [
+                            "org.uengine.contexts.TextContext",
+                            {}
+                          ],
+                          "defaultValue": ""
+                        }
+                      ]
+                    }
+                  ],
+                  [
+                    "org.uengine.kernel.ParameterContext",
+                    {
+                      "argument": [
+                        "org.uengine.contexts.TextContext",
+                        {
+                          "text": "options"
+                        }
+                      ],
+                      "variable": [
+                        "org.uengine.kernel.ProcessVariable",
+                        {
+                          "name": "options",
+                          "displayName": [
+                            "org.uengine.contexts.TextContext",
+                            {}
+                          ],
+                          "defaultValue": ""
+                        }
+                      ]
+                    }
+                  ],
+                  [
+                    "org.uengine.kernel.ParameterContext",
+                    {
+                      "argument": [
+                        "org.uengine.contexts.TextContext",
+                        {
+                          "text": "methods"
+                        }
+                      ]
+                    }
+                  ],
+                  [
+                    "org.uengine.kernel.ParameterContext",
+                    {
+                      "argument": [
+                        "org.uengine.contexts.TextContext",
+                        {
+                          "text": "keywords"
+                        }
+                      ]
+                    }
+                  ]
+                ]
+              ],
+              "dockerConfig": [
+                "org.uengine.five.rpa.DockerConfig",
+                {}
+              ],
+              "dynamicChangeAllowed": true
+            }
+          ],
+          [
+            "org.uengine.kernel.HumanActivity",
+            {
+              "name": [
+                "org.uengine.contexts.TextContext",
+                {
+                  "text": "Human"
+                }
+              ],
+              "description": [
+                "org.uengine.contexts.TextContext",
+                {}
+              ],
+              "tracingTag": "3",
+              "retryDelay": 60,
+              "isDynamicChangeAllowed": true,
+              "message": "onHumanActivityResult3",
+              "tool": "defaultHandler",
+              "isSendEmailWorkitem": true,
+              "isAllowAnonymous": true,
+              "duration": 5,
+              "instruction": [
+                "org.uengine.contexts.TextContext",
+                {}
+              ],
+              "keyword": [
+                "org.uengine.contexts.TextContext",
+                {}
+              ],
+              "sendEmailWorkitem": true,
+              "allowAnonymous": true,
+              "dynamicChangeAllowed": true
+            }
+          ]
+        ]
+      ],
+      "sequenceFlows": [
+        "java.util.ArrayList",
+        [
+          [
+            "org.uengine.kernel.bpmn.SequenceFlow",
+            {
+              "sourceRef": "1",
+              "targetRef": "2"
+            }
+          ],
+          [
+            "org.uengine.kernel.bpmn.SequenceFlow",
+            {
+              "sourceRef": "2",
+              "targetRef": "3"
+            }
+          ],
+          [
+            "org.uengine.kernel.bpmn.SequenceFlow",
+            {
+              "sourceRef": "3",
+              "targetRef": "4"
+            }
+          ]
+        ]
+      ],
+      "processVariableDescriptors": [
+        "[Lorg.uengine.kernel.ProcessVariable;",
+        [
+          [
+            "org.uengine.kernel.ProcessVariable",
+            {
+              "name": "url",
+              "displayName": [
+                "org.uengine.contexts.TextContext",
+                {}
+              ],
+              "defaultValue": ""
+            }
+          ],
+          [
+            "org.uengine.kernel.ProcessVariable",
+            {
+              "name": "alias",
+              "displayName": [
+                "org.uengine.contexts.TextContext",
+                {}
+              ],
+              "defaultValue": ""
+            }
+          ],
+          [
+            "org.uengine.kernel.ProcessVariable",
+            {
+              "name": "browser",
+              "displayName": [
+                "org.uengine.contexts.TextContext",
+                {}
+              ],
+              "defaultValue": ""
+            }
+          ],
+          [
+            "org.uengine.kernel.ProcessVariable",
+            {
+              "name": "options",
+              "displayName": [
+                "org.uengine.contexts.TextContext",
+                {}
+              ],
+              "defaultValue": ""
+            }
+          ]
+        ]
+      ],
+      "defaultFlowchartViewType": "swimlane",
+      "defaultFlowchartViewOption": "vertical",
+      "duration": 10,
+      "simulationInstanceCount": 10,
+      "simulationInputFrequency": 10,
+      "archive": true,
+      "isAdhoc": true,
+      "initiateByFirstWorkitem": true,
+      "activitySequence": 3,
+      "adhoc": true,
+      "dynamicChangeAllowed": true
+    }
+  ]

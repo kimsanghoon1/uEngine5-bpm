@@ -1,0 +1,204 @@
+{
+  "_type": "org.uengine.kernel.ProcessDefinition",
+  "elements": {
+    "3806d5df-86bb-fa42-63de-ac5fa03aeb7a": {
+      "_type": "org.uengine.kernel.bpmn.StartEvent",
+      "name": "",
+      "tracingTag": "1",
+      "selected": false,
+      "elementView": {
+        "_type": "org.uengine.kernel.view.DefaultActivityView",
+        "id": "3806d5df-86bb-fa42-63de-ac5fa03aeb7a",
+        "x": 265,
+        "y": 253,
+        "width": 30,
+        "height": 30,
+        "style": "{\"stroke\":\"black\",\"fill-r\":\".5\",\"fill-cx\":\".5\",\"fill-cy\":\".5\",\"fill\":\"white\",\"fill-opacity\":0,\"label-position\":\"bottom\",\"label-width\":120,\"stroke-width\":1.5,\"cursor\":\"move\"}",
+        "parent": null
+      }
+    },
+    "c2fc1a06-0e7d-4781-0562-6dc0713b199c": null,
+    "da523b5e-eed9-ed36-9d92-cb0f81556979": {
+      "_type": "org.uengine.kernel.HumanActivity",
+      "name": "task1",
+      "role": {
+        "name": null
+      },
+      "parameters": [
+        {
+          "direction": "IN-OUT",
+          "variable": {
+            "name": "var1"
+          },
+          "argument": {
+            "text": "arg"
+          }
+        }
+      ],
+      "tracingTag": "2",
+      "selected": false,
+      "elementView": {
+        "_type": "org.uengine.kernel.view.DefaultActivityView",
+        "id": "da523b5e-eed9-ed36-9d92-cb0f81556979",
+        "x": 380,
+        "y": 250,
+        "width": 100,
+        "height": 70,
+        "style": "{\"stroke\":\"black\",\"fill-r\":1,\"fill-cx\":0.1,\"fill-cy\":0.1,\"fill\":\"#FFFFFF\",\"fill-opacity\":0,\"label-position\":\"center\",\"stroke-width\":1.2,\"r\":\"10\",\"cursor\":\"move\"}",
+        "parent": null
+      },
+      "oldName": ""
+    },
+    "688af0eb-cfd5-c8fa-8800-756f98490825": null,
+    "68d6b619-97f1-0a94-2d50-f73f8459a228": {
+      "_type": "org.uengine.kernel.bpmn.EndEvent",
+      "name": "",
+      "tracingTag": "4",
+      "selected": false,
+      "elementView": {
+        "_type": "org.uengine.kernel.view.DefaultActivityView",
+        "id": "68d6b619-97f1-0a94-2d50-f73f8459a228",
+        "x": 652,
+        "y": 250,
+        "width": 30,
+        "height": 30,
+        "style": "{\"stroke\":\"black\",\"fill-r\":\".5\",\"fill-cx\":\".5\",\"fill-cy\":\".5\",\"fill\":\"white\",\"fill-opacity\":0,\"label-position\":\"bottom\",\"stroke-width\":3,\"label-width\":120,\"cursor\":\"move\"}",
+        "parent": null
+      }
+    },
+    "235e7741-a210-b990-605b-114cccf23297": {
+      "_type": "org.uengine.kernel.HumanActivity",
+      "name": "task2",
+      "role": {
+        "name": null
+      },
+      "parameters": [
+        {
+          "direction": "IN-OUT",
+          "variable": {
+            "name": "var2"
+          },
+          "argument": {
+            "text": "arg"
+          }
+        }
+      ],
+      "tracingTag": "3",
+      "selected": false,
+      "elementView": {
+        "_type": "org.uengine.kernel.view.DefaultActivityView",
+        "id": "235e7741-a210-b990-605b-114cccf23297",
+        "x": 546,
+        "y": 252,
+        "width": 100,
+        "height": 70,
+        "style": "{\"stroke\":\"black\",\"fill-r\":1,\"fill-cx\":0.1,\"fill-cy\":0.1,\"fill\":\"#FFFFFF\",\"fill-opacity\":0,\"label-position\":\"center\",\"stroke-width\":1.2,\"r\":\"10\",\"cursor\":\"move\"}",
+        "parent": null
+      },
+      "oldName": ""
+    }
+  },
+  "relations": {
+    "e12fea20-d5b7-7259-082a-761a19f17938": {
+      "name": "",
+      "_type": "org.uengine.kernel.bpmn.SequenceFlow",
+      "selected": false,
+      "sourceRef": "1",
+      "targetRef": "2",
+      "from": "3806d5df-86bb-fa42-63de-ac5fa03aeb7a",
+      "to": "c2fc1a06-0e7d-4781-0562-6dc0713b199c",
+      "priority": 1,
+      "relationView": {
+        "style": "{\"stroke\":\"black\",\"fill-r\":\".5\",\"fill-cx\":\".5\",\"fill-cy\":\".5\",\"fill\":\"none\",\"fill-opacity\":0,\"label-position\":\"center\",\"stroke-width\":1.5,\"stroke-opacity\":1,\"edge-type\":\"plain\",\"arrow-start\":\"none\",\"arrow-end\":\"block\",\"stroke-dasharray\":\"\",\"stroke-linejoin\":\"round\",\"cursor\":\"pointer\"}",
+        "value": "[[280,252],[330,252]]",
+        "id": "e12fea20-d5b7-7259-082a-761a19f17938"
+      },
+      "condition": {
+        "_type": "org.uengine.kernel.Evaluate",
+        "pv": {
+          "_type": "org.uengine.kernel.ProcessVariable",
+          "name": ""
+        },
+        "condition": "==",
+        "val": ""
+      }
+    },
+    "9a28cba4-2640-811a-bd4b-77f3fb5c28ab": {
+      "name": "",
+      "_type": "org.uengine.kernel.bpmn.SequenceFlow",
+      "selected": false,
+      "sourceRef": "2",
+      "targetRef": "3",
+      "from": "da523b5e-eed9-ed36-9d92-cb0f81556979",
+      "to": "688af0eb-cfd5-c8fa-8800-756f98490825",
+      "priority": 1,
+      "relationView": {
+        "style": "{\"stroke\":\"black\",\"fill-r\":\".5\",\"fill-cx\":\".5\",\"fill-cy\":\".5\",\"fill\":\"none\",\"fill-opacity\":0,\"label-position\":\"center\",\"stroke-width\":1.5,\"stroke-opacity\":1,\"edge-type\":\"plain\",\"arrow-start\":\"none\",\"arrow-end\":\"block\",\"stroke-dasharray\":\"\",\"stroke-linejoin\":\"round\",\"cursor\":\"pointer\"}",
+        "value": "[[430,252],[496,252]]",
+        "id": "9a28cba4-2640-811a-bd4b-77f3fb5c28ab"
+      },
+      "condition": {
+        "_type": "org.uengine.kernel.Evaluate",
+        "pv": {
+          "_type": "org.uengine.kernel.ProcessVariable",
+          "name": ""
+        },
+        "condition": "==",
+        "val": ""
+      }
+    },
+    "aa109b63-8b76-9c71-4ae1-157e77ca7b04": {
+      "name": "",
+      "_type": "org.uengine.kernel.bpmn.SequenceFlow",
+      "selected": false,
+      "sourceRef": "3",
+      "targetRef": "4",
+      "from": "688af0eb-cfd5-c8fa-8800-756f98490825",
+      "to": "68d6b619-97f1-0a94-2d50-f73f8459a228",
+      "priority": 1,
+      "relationView": {
+        "style": "{\"stroke\":\"black\",\"fill-r\":\".5\",\"fill-cx\":\".5\",\"fill-cy\":\".5\",\"fill\":\"none\",\"fill-opacity\":0,\"label-position\":\"center\",\"stroke-width\":1.5,\"stroke-opacity\":1,\"edge-type\":\"plain\",\"arrow-start\":\"none\",\"arrow-end\":\"block\",\"stroke-dasharray\":\"\",\"stroke-linejoin\":\"round\",\"cursor\":\"pointer\"}",
+        "value": "[[596,252],[637,252]]",
+        "id": "aa109b63-8b76-9c71-4ae1-157e77ca7b04"
+      },
+      "condition": {
+        "_type": "org.uengine.kernel.Evaluate",
+        "pv": {
+          "_type": "org.uengine.kernel.ProcessVariable",
+          "name": ""
+        },
+        "condition": "==",
+        "val": ""
+      }
+    }
+  },
+  "processVariableDescriptors": [
+    {
+      "name": "var1",
+      "displayName": "var1",
+      "defaultValueInString": "var1",
+      "global": true,
+      "persistOption": "BPMS",
+      "typeClassName": "java.lang.String",
+      "_type": "org.uengine.kernel.ProcessVariable"
+    },
+    {
+      "name": "var2",
+      "displayName": "var2",
+      "defaultValueInString": "var2",
+      "global": true,
+      "persistOption": "BPMS",
+      "typeClassName": "java.lang.Object",
+      "_type": "org.uengine.kernel.ProcessVariable"
+    }
+  ],
+  "version": 3,
+  "scm": {
+    "tag": null,
+    "org": null,
+    "repo": null,
+    "forkedOrg": null,
+    "forkedRepo": null
+  },
+  "_changedByLocaleSelector": false
+}

@@ -26,11 +26,11 @@ public class ActivityQueue implements IActivityEventQueue {
         activityQueued.getActivityInfo().setTracingTag(tracingTag);
 
 
-        MessageChannel messageChannel = streams.outboundChannel();
-        messageChannel.send(MessageBuilder
-                .withPayload(activityQueued)
-                .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
-                .build());
+        // MessageChannel messageChannel = streams.outboundChannel();
+        // messageChannel.send(MessageBuilder
+        //         .withPayload(activityQueued)
+        //         .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
+        //         .build());
 
     }
 }

@@ -27,8 +27,7 @@ public class KernelTest {
 
     @Autowired
     ApplicationContext applicationContext;
-
-
+    
     @Test
     void contextLoads() {
         System.out.println("sdastsa");
@@ -41,17 +40,13 @@ public class KernelTest {
 
         ProcessVariable variable1 = new ProcessVariable();
         variable1.setName("var1");
-
-
         StartEvent act1 = new StartEvent();
         act1.setName("start");
-
         processDefinition.addChildActivity(act1);
-
         RPAActivity act2 = new RPAActivity();
         act2.setName("act2");
         act2.setArgument(ProcessVariable.forName("var1"));
-        
+    
         ParameterContext parameterContext = new ParameterContext();
         parameterContext.setArgument(new TextContext());
         parameterContext.getArgument().setText("parameter1");

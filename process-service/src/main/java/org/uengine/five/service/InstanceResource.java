@@ -54,18 +54,21 @@ public class InstanceResource extends RepresentationModel {
                         methodOn(org.uengine.five.service.RoleMappingService.class).getRoleMapping(processInstance.getInstanceId(), null)
                 ).withRel("role-mapping")
         );
+        // 하위 코드는 기존 Definition Service에서 코드를 받아오는 코드임
+        // Acebase 경로를 넣어주는 방식으로 고려하여 작성필요.
+        // ProcessInstance 값이 Null이 많은 원인 파악 필요함.
+        // System.out.println(processInstance.getName());
+        // add(
+        //         linkTo(
+        //                 methodOn(DefinitionServiceUtil.class).getDefinitionPath(processInstance.getName())
+        //         ).withRel("definition")
+        // );
 
-        add(
-                linkTo(
-                        methodOn(DefinitionService.class).getDefinition(UEngineUtil.getNamedExtFile(processInstance.getProcessDefinition().getId(), "json"))
-                ).withRel("definition")
-        );
-
-        add(
-                linkTo(
-                        methodOn(DefinitionService.class).getRawDefinition(UEngineUtil.getNamedExtFile(processInstance.getProcessDefinition().getId(), "json"))
-                ).withRel("rawDefinition")
-        );
+        // add(
+        //         linkTo(
+        //                 methodOn(DefinitionService.class).getRawDefinition(UEngineUtil.getNamedExtFile(processInstance.getProcessDefinition().getId(), "json"))
+        //         ).withRel("rawDefinition")
+        // );
 
         if(!processInstance.isRunning(""))
             add(
