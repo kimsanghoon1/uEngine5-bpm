@@ -182,6 +182,7 @@ public class FlowActivity extends ComplexActivity {
 	protected void executeActivity(ProcessInstance instance) throws Exception {
 		//TODO: find out events and register them as event listeners as follows:
 		// for each events:   getProcessDefinition().addMessageListener(instance, eventActivity);
+
 		for(Activity childActivity: getChildActivities()){
 			if(childActivity instanceof Event && childActivity instanceof MessageListener
 					&& (childActivity.getIncomingSequenceFlows() == null || childActivity.getIncomingSequenceFlows().size() == 0)){

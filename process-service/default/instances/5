@@ -1,0 +1,31 @@
+<map>
+  <entry>
+    <string>:_end_time:prop</string>
+    <gregorian-calendar>
+      <time>1688098426042</time>
+      <timezone>Asia/Seoul</timezone>
+    </gregorian-calendar>
+  </entry>
+  <entry>
+    <string>:_status:prop</string>
+    <string>Completed</string>
+  </entry>
+  <entry>
+    <string>:_due date:prop</string>
+    <gregorian-calendar>
+      <time>1688962426042</time>
+      <timezone>Asia/Seoul</timezone>
+    </gregorian-calendar>
+  </entry>
+  <entry>
+    <string>:tokenCount:prop</string>
+    <int>0</int>
+  </entry>
+  <entry>
+    <string>:_start_time:prop</string>
+    <gregorian-calendar>
+      <time>1688098426042</time>
+      <timezone>Asia/Seoul</timezone>
+    </gregorian-calendar>
+  </entry>
+</map>

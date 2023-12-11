@@ -10,7 +10,7 @@ import java.util.*;
 /**
  * Created by jjy on 2016. 10. 12..
  */
-public interface ProcessInstance extends BeanPropertyResolver{
+public interface ProcessInstance extends BeanPropertyResolver {
 
     abstract public String getInstanceId();
     abstract void setInstanceId(String value);

@@ -90,8 +90,8 @@ public class DefaultProcessInstance extends AbstractProcessInstance {
 		return getProcessDefinition(true);
 	}
 		
-	public ProcessDefinition getProcessDefinition(boolean chcahed)  throws Exception {
-			return processDefinition;
+	public ProcessDefinition getProcessDefinition(boolean cached)  throws Exception {
+		return processDefinition;
 	}
 	
 	public void setProcessDefinition(ProcessDefinition value) {

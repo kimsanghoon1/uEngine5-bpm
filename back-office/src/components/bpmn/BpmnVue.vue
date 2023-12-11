@@ -45,7 +45,7 @@
       </div>
 
       <!--릴레이션은 액티비티간 연결선(흐름)-->
-      <div v-for="relation in data.definition.sequenceFlows">
+      <div v-for="relation in data.definition.sequenceFlows[1]">
         <bpmn-relation v-if="relation != null" :relation.sync="relation" :definition="data.definition"></bpmn-relation>
       </div>
       <div v-for="relation in data.definition.messageFlows">

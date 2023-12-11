@@ -531,7 +531,9 @@ System.out.println("=========================== HARD-TO-FIND : HumanActivity.cre
 		//	int disPatchingOption = getProcessDefinition().getRole(roleMapping.getName()).getDispatchingOption();
 		//	roleMapping.setDispatchingOption(disPatchingOption);
 		//}
-			
+
+		// 하위 코드 확인 필요. ResourceName 어디서 세팅하는지 확인 해야함..
+		// roleMapping.setResourceName(getRole().getName());	//
 		return roleMapping;
 	}
 
@@ -558,7 +560,7 @@ System.out.println("=========================== HARD-TO-FIND : HumanActivity.cre
 	}
 		
 	protected void executeActivity(ProcessInstance instance) throws Exception{
-	    
+	    System.out.println("Execute HumanActivity");
 	    addLoopBackCount(instance);
 	    
 		addWorkitem(instance, null);
@@ -615,13 +617,10 @@ System.out.println("=========================== HARD-TO-FIND : HumanActivity.cre
 			}
 			
 			
-			if(
-					roleMapping.getResourceName()==null || roleMapping.getResourceName().equals(roleMapping.getEndpoint())
-					|| !UEngineUtil.isNotEmpty(roleMapping.getResourceName())
-			)
+			if(roleMapping.getResourceName()==null || roleMapping.getResourceName().equals(roleMapping.getEndpoint()) || !UEngineUtil.isNotEmpty(roleMapping.getResourceName()))
 				roleMapping.fill(instance);
 
-			kpv.put("resourceName", roleMapping.getResourceName());
+			kpv.put("resourceName", roleMapping.getResourceName()); // 
 
 			String[] params = roleMapping.getDispatchingParameters();
 			if(params!=null && params.length > 0){
@@ -702,6 +701,7 @@ System.out.println("=========================== HARD-TO-FIND : HumanActivity.cre
 		}
 		
 		if(tID==null){
+			// TODO: 체크 필요 (저장 되는지)
 			tID = worklist.addWorkItem(roleMapping != null ? roleMapping.getEndpoint() : null, parameters, instance.getProcessTransactionContext());
 		}else if(Activity.STATUS_SUSPENDED.equals(getStatus(instance))){//if suspended
 			ResultPayload rp = new ResultPayload();

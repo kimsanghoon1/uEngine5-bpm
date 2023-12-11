@@ -1,0 +1,36 @@
+<org.uengine.kernel.ProcessDefinition>
+  <breakpoint>false</breakpoint>
+  <name>
+    <text>Noname</text>
+  </name>
+  <cost>0</cost>
+  <retryLimit>0</retryLimit>
+  <retryDelay>60</retryDelay>
+  <isHidden>false</isHidden>
+  <integrity>0</integrity>
+  <isDynamicChangeAllowed>true</isDynamicChangeAllowed>
+  <isQueuingEnabled>false</isQueuingEnabled>
+  <isFaultTolerant>false</isFaultTolerant>
+  <childActivities/>
+  <pools/>
+  <processVariableDescriptors/>
+  <leaveEventListenersEvenIfOutOfScope>false</leaveEventListenersEvenIfOutOfScope>
+  <isCollapsed>false</isCollapsed>
+  <serviceDefinitions/>
+  <isGlobal>false</isGlobal>
+  <runAllStartableActivities>false</runAllStartableActivities>
+  <defaultFlowchartViewType>swimlane</defaultFlowchartViewType>
+  <defaultFlowchartViewOption>vertical</defaultFlowchartViewOption>
+  <isAbstract>false</isAbstract>
+  <duration>10</duration>
+  <simulationInstanceCount>10</simulationInstanceCount>
+  <simulationInputFrequency>10</simulationInputFrequency>
+  <simulationInputFrequencyDeviation>0</simulationInputFrequencyDeviation>
+  <archive>true</archive>
+  <uEngineVersion>0</uEngineVersion>
+  <version>0</version>
+  <isAdhoc>true</isAdhoc>
+  <initiateByFirstWorkitem>true</initiateByFirstWorkitem>
+  <isVolatile>false</isVolatile>
+  <activitySequence>0</activitySequence>
+</org.uengine.kernel.ProcessDefinition>

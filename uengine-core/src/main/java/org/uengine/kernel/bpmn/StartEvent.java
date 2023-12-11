@@ -11,6 +11,7 @@ public class StartEvent extends Event {
 			
 	@Override
 	protected void executeActivity(ProcessInstance instance) throws Exception {
+		System.out.println("start!!");
 		fireComplete(instance);
 	}
 

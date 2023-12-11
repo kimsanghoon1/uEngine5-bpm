@@ -8,6 +8,20 @@
             "type": "java",
             "name": "DefinitionServiceApplication",
             "request": "launch",
+            "mainClass": "DefinitionServiceApplication",
+            "projectName": "definition-service"
+        },
+        {
+            "type": "java",
+            "name": "ProcessServiceApplication",
+            "request": "launch",
+            "mainClass": "org.uengine.five.ProcessServiceApplication",
+            "projectName": "process-service"
+        },
+        {
+            "type": "java",
+            "name": "DefinitionServiceApplication",
+            "request": "launch",
             "mainClass": "org.uengine.five.DefinitionServiceApplication",
             "projectName": "definition-service"
         },

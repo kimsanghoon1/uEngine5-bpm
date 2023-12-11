@@ -215,24 +215,24 @@ public class ScriptActivity extends DefaultActivity {
 		fireComplete(instance);
 	}
 	
-	public static void main(String [] args) throws Exception{
-		ProcessDefinition scriptProcTest = new ProcessDefinition();
+	// public static void main(String [] args) throws Exception{
+	// 	ProcessDefinition scriptProcTest = new ProcessDefinition();
 		
-		ScriptActivity scriptAct = new ScriptActivity();
-		scriptAct.setScript("instance.set(\"\", \"a\", util.formatSerializable(\"test\"))");
-		// scriptAct.setScript("instance.get(\"\", \"a\");");
+	// 	ScriptActivity scriptAct = new ScriptActivity();
+	// 	scriptAct.setScript("instance.set(\"\", \"a\", util.formatSerializable(\"test\"))");
+	// 	// scriptAct.setScript("instance.get(\"\", \"a\");");
 
-		scriptProcTest.setChildActivities(new Activity[]{scriptAct});
+	// 	scriptProcTest.setChildActivities(new Activity[]{scriptAct});
 
-		AbstractProcessInstance.USE_CLASS = DefaultProcessInstance.class;
-		ComplexActivity.USE_JMS = false;
-		ComplexActivity.USE_THREAD = false;
+	// 	AbstractProcessInstance.USE_CLASS = DefaultProcessInstance.class;
+	// 	ComplexActivity.USE_JMS = false;
+	// 	ComplexActivity.USE_THREAD = false;
 		
-		ProcessInstance inst = scriptProcTest.createInstance();
-		inst.execute();
+	// 	ProcessInstance inst = scriptProcTest.createInstance();
+	// 	inst.execute();
 		
-		System.out.println(inst.get("", "a"));
-	}
+	// 	System.out.println(inst.get("", "a"));
+	// }
 
 
 	public ValidationContext validate(Map options) {

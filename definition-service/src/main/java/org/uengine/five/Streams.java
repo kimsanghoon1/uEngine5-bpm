@@ -9,7 +9,7 @@ public interface Streams {
     String INPUT = "bpm-topic";
 
     @Input(INPUT)
-    SubscribableChannel inboundGreetings();
+    SubscribableChannel inboundChannel();
 
     @Output("bpm-topic")
     MessageChannel outboundChannel();

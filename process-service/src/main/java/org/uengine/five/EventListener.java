@@ -57,9 +57,6 @@ public class EventListener {
 
     @StreamListener(Streams.INPUT)
     public void handleDone(@Payload ActivityDone activityDone) {
-        logger.info("***************************");
-        logger.info("handleDone");
-        logger.info("***************************");
         if(!activityDone.checkMyEvent()) return;
         System.out.println("Received: ");
         ProcessInstance instance = instanceService.getProcessInstanceLocal(activityDone.getActivityInfo().getInstanceId());
@@ -91,9 +88,6 @@ public class EventListener {
     @StreamListener(Streams.INPUT)
     @ProcessTransactional
     public void handleFailed(@Payload ActivityFailed activityFailed) throws Exception {
-        logger.info("***************************");
-        logger.info("activityFailed");
-        logger.info("***************************");
         if(!activityFailed.checkMyEvent()) return;
 
         try {
@@ -110,9 +104,6 @@ public class EventListener {
     @StreamListener(Streams.INPUT)
     @ProcessTransactional
     public void handleQueued(@Payload ActivityQueued activityQueued) throws Exception {
-        logger.info("***************************");
-        logger.info("activityQueued");
-        logger.info("***************************");
         if(!activityQueued.checkMyEvent()) return;
         ProcessInstance instance = instanceService.getProcessInstanceLocal(activityQueued.getActivityInfo().getInstanceId());
         try {

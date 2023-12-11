@@ -1,0 +1,154 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "XStreamSerializer",
+            "request": "launch",
+            "mainClass": "org.uengine.components.serializers.XStreamSerializer",
+            "projectName": "uengine-core"
+        },
+        {
+            "type": "java",
+            "name": "org_uengine_kernel_RoleMappingSerializer",
+            "request": "launch",
+            "mainClass": "org.uengine.components.serializers.org_uengine_kernel_RoleMappingSerializer",
+            "projectName": "uengine-core"
+        },
+        {
+            "type": "java",
+            "name": "DefaultProcessInstance",
+            "request": "launch",
+            "mainClass": "org.uengine.kernel.DefaultProcessInstance",
+            "projectName": "uengine-core"
+        },
+        {
+            "type": "java",
+            "name": "Evaluate",
+            "request": "launch",
+            "mainClass": "org.uengine.kernel.Evaluate",
+            "projectName": "uengine-core"
+        },
+        {
+            "type": "java",
+            "name": "ProcessVariableValue",
+            "request": "launch",
+            "mainClass": "org.uengine.kernel.ProcessVariableValue",
+            "projectName": "uengine-core"
+        },
+        {
+            "type": "java",
+            "name": "RoleMapping",
+            "request": "launch",
+            "mainClass": "org.uengine.kernel.RoleMapping",
+            "projectName": "uengine-core"
+        },
+        {
+            "type": "java",
+            "name": "SubProcessActivity",
+            "request": "launch",
+            "mainClass": "org.uengine.kernel.SubProcessActivity",
+            "projectName": "uengine-core"
+        },
+        {
+            "type": "java",
+            "name": "BeanValueTransformer",
+            "request": "launch",
+            "mainClass": "org.uengine.processdesigner.mapper.transformers.BeanValueTransformer",
+            "projectName": "uengine-core"
+        },
+        {
+            "type": "java",
+            "name": "DefinitionFileConverter",
+            "request": "launch",
+            "mainClass": "org.uengine.util.DefinitionFileConverter",
+            "projectName": "uengine-core"
+        },
+        {
+            "type": "java",
+            "name": "FileCopy",
+            "request": "launch",
+            "mainClass": "org.uengine.util.FileCopy",
+            "projectName": "uengine-core"
+        },
+        {
+            "type": "java",
+            "name": "For",
+            "request": "launch",
+            "mainClass": "org.uengine.util.For",
+            "projectName": "uengine-core"
+        },
+        {
+            "type": "java",
+            "name": "ForLoop",
+            "request": "launch",
+            "mainClass": "org.uengine.util.ForLoop",
+            "projectName": "uengine-core"
+        },
+        {
+            "type": "java",
+            "name": "MeasuringContext",
+            "request": "launch",
+            "mainClass": "org.uengine.util.MeasuringContext",
+            "projectName": "uengine-core"
+        },
+        {
+            "type": "java",
+            "name": "OutInterceptor",
+            "request": "launch",
+            "mainClass": "org.uengine.util.OutInterceptor",
+            "projectName": "uengine-core"
+        },
+        {
+            "type": "java",
+            "name": "ProcessMonitoringToolkit",
+            "request": "launch",
+            "mainClass": "org.uengine.util.ProcessMonitoringToolkit",
+            "projectName": "uengine-core"
+        },
+        {
+            "type": "java",
+            "name": "RecursiveLoop",
+            "request": "launch",
+            "mainClass": "org.uengine.util.RecursiveLoop",
+            "projectName": "uengine-core"
+        },
+        {
+            "type": "java",
+            "name": "StringUtils",
+            "request": "launch",
+            "mainClass": "org.uengine.util.StringUtils",
+            "projectName": "uengine-core"
+        },
+        {
+            "type": "java",
+            "name": "UEngineUtil",
+            "request": "launch",
+            "mainClass": "org.uengine.util.UEngineUtil",
+            "projectName": "uengine-core"
+        },
+        {
+            "type": "java",
+            "name": "URLConn",
+            "request": "launch",
+            "mainClass": "org.uengine.util.URLConn",
+            "projectName": "uengine-core"
+        },
+        {
+            "type": "java",
+            "name": "EMailServerSoapBindingImpl",
+            "request": "launch",
+            "mainClass": "org.uengine.webservices.emailserver.impl.EMailServerSoapBindingImpl",
+            "projectName": "uengine-core"
+        }
+    ]
+}

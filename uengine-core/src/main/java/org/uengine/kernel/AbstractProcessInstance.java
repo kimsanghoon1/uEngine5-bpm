@@ -157,7 +157,8 @@ public abstract class AbstractProcessInstance implements ProcessInstance, java.i
 	}
 
 
-	public void execute() throws Exception{
+	public void execute() throws Exception {
+		System.out.println("execute?");
 		getProcessDefinition().fireEventToActivityFilters(this, "instance.beforeStart", null);
 
 		execute(""); //Activity where tracingtag="" locates the definition itself.

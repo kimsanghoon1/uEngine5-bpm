@@ -162,6 +162,7 @@ public class SequenceFlow extends AbstractFlow implements java.io.Serializable, 
 
 	@Override
 	public void beforeSerialization() {
+		// Activity
 		if(isOtherwise()){
 			setCondition(new Otherwise());
 		}
@@ -169,7 +170,7 @@ public class SequenceFlow extends AbstractFlow implements java.io.Serializable, 
 
 	@Override
 	public void afterDeserialization() {
-
+		//
 	}
 
 }

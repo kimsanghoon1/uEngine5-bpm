@@ -432,40 +432,40 @@ public class RoleMapping implements java.io.Serializable, Cloneable, CommandVari
 	}
 //
 
-//	public void fill(){
-//		if(ProcessDesigner.getInstance()!=null) return;
-//		
-//		DefaultTransactionContext dtc = null;
-//		try {
-//			dtc = new DefaultTransactionContext();
-//		} catch (Exception e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-//		try {
-//			dtc.setConnectective(true);
-//			OrgDAOFacade orgDF = OrgDAOFacade.getInstance(dtc);
-//			UserDAO userDAO = orgDF.findUserById(getEndpoint());
-//			
-//			setEmailAddress(userDAO.getEmailAddress());
-//			setLoginName(userDAO.getLoginName());
-//			setCompId(userDAO.getCompanyId());
-//			setNickName(userDAO.getNickname());
-//			setDeptId(userDAO.getDeptId());
-//			setDeptName(userDAO.getDeptName());
-//			setUserName(userDAO.getName());
-//			setTitle(userDAO.getJobPositionName());
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			try {
-//				dtc.close();
-//			} catch (Exception e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}		
-//	}
+	// public void fill(){
+	// 	if(ProcessDesigner.getInstance()!=null) return;
+		
+	// 	DefaultTransactionContext dtc = null;
+	// 	try {
+	// 		dtc = new DefaultTransactionContext();
+	// 	} catch (Exception e1) {
+	// 		// TODO Auto-generated catch block
+	// 		e1.printStackTrace();
+	// 	}
+	// 	try {
+	// 		dtc.setConnectective(true);
+	// 		OrgDAOFacade orgDF = OrgDAOFacade.getInstance(dtc);
+	// 		UserDAO userDAO = orgDF.findUserById(getEndpoint());
+			
+	// 		setEmailAddress(userDAO.getEmailAddress());
+	// 		setLoginName(userDAO.getLoginName());
+	// 		setCompId(userDAO.getCompanyId());
+	// 		setNickName(userDAO.getNickname());
+	// 		setDeptId(userDAO.getDeptId());
+	// 		setDeptName(userDAO.getDeptName());
+	// 		setUserName(userDAO.getName());
+	// 		setTitle(userDAO.getJobPositionName());
+	// 	} catch (Exception e) {
+	// 		e.printStackTrace();
+	// 	} finally {
+	// 		try {
+	// 			dtc.close();
+	// 		} catch (Exception e) {
+	// 			// TODO Auto-generated catch block
+	// 			e.printStackTrace();
+	// 		}
+	// 	}		
+	// }
 	
 	
 	public void fill(ProcessInstance instance) throws Exception {

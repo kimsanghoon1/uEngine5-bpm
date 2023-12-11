@@ -1,10 +1,11 @@
 package org.uengine.five.service;
 
+// import org.hibernate.tool.schema.spi.ExecutionOptions;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.web.bind.annotation.*;
 import org.uengine.kernel.ProcessInstance;
-
+import org.uengine.five.service.ExecutionOption;
 import javax.ws.rs.QueryParam;
 import java.util.Map;
 
@@ -20,8 +21,11 @@ import java.util.Map;
 @FeignClient(name = "bpm", url="http://process-service:9094")
 public interface InstanceService {
 
+    // @RequestMapping(value = "/instance", method = {RequestMethod.POST})
+    // public RepresentationModel runDefinition(@RequestParam("defPath") String filePath, @QueryParam("simulation") boolean simulation) throws Exception;
+
     @RequestMapping(value = "/instance", method = {RequestMethod.POST})
-    public RepresentationModel runDefinition(@RequestParam("defPath") String filePath, @QueryParam("simulation") boolean simulation) throws Exception;
+    public RepresentationModel runDefinition(@RequestParam("defPath") String filePath, @QueryParam("simulation") boolean simulation, @RequestBody ExecutionOption options) throws Exception;
 
     @RequestMapping(value = "/instance/{instanceId}/start", method = RequestMethod.POST)
     public RepresentationModel start(@PathVariable("instanceId") String instanceId) throws Exception;

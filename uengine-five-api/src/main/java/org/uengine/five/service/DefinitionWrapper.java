@@ -1,7 +1,7 @@
 package org.uengine.five.service;
 
 import java.io.Serializable;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 /**
  * Created by uengine on 2017. 8. 20..
  *
@@ -12,6 +12,8 @@ import java.io.Serializable;
  *
  * @see DefinitionServiceImpl.createTypedJsonObjectMapper()
  */
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class DefinitionWrapper implements Serializable{
 
     Serializable definition;

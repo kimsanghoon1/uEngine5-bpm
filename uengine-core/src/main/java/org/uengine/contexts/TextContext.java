@@ -83,7 +83,6 @@ public class TextContext implements Serializable{
 
 			text = value;
 		}
-
 		public void setText(String locale, String value){
 			if(localedTexts==null)
 				localedTexts = new HashMap();

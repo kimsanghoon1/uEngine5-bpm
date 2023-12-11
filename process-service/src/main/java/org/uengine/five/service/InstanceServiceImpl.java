@@ -9,11 +9,14 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.QueryParam;
 
+import org.hibernate.tool.schema.spi.ExecutionOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.hateoas.RepresentationModel;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,7 +29,11 @@ import org.uengine.five.framework.ProcessTransactional;
 import org.uengine.five.overriding.JPAProcessInstance;
 import org.uengine.five.repository.ProcessInstanceRepository;
 import org.uengine.five.repository.ServiceEndpointRepository;
-import org.uengine.kernel.*;
+import org.uengine.kernel.Activity;
+import org.uengine.kernel.ActivityInstanceContext;
+import org.uengine.kernel.CatchingMessageEvent;
+import org.uengine.kernel.ProcessDefinition;
+import org.uengine.kernel.ProcessInstance;
 import org.uengine.kernel.bpmn.CatchingRestMessageEvent;
 import org.uengine.kernel.bpmn.SendTask;
 import org.uengine.kernel.bpmn.SignalEventInstance;
@@ -48,25 +55,30 @@ import com.fasterxml.jackson.databind.node.ValueNode;
  *  - json must be Typed JSON to enable object polymorphism - need to change the jackson engine. TODO: accept? typed json is sometimes hard to read
  */
 @RestController
+@RequestMapping("/api")
 public class InstanceServiceImpl implements InstanceService {
 
     @Autowired
     DefinitionServiceUtil definitionService;
+
+    @Autowired
+    InstanceServiceUtil instanceService;
     // ----------------- execution services -------------------- //
     @RequestMapping(value = "/instance", method = {RequestMethod.POST, RequestMethod.PUT})
     @Transactional(rollbackFor={Exception.class})
     @ProcessTransactional
-    public InstanceResource runDefinition(@RequestParam("defPath") String filePath, @QueryParam("simulation") boolean simulation) throws Exception {
-             // 실행 Logic
-             //FIXME:  remove me
-             //  String userId = SecurityAwareServletFilter.getUserId();
-             //  GlobalContext.setUserId(userId);
-             //   
-        
+    public InstanceResource runDefinition(@RequestParam("defPath") String filePath, @QueryParam("simulation") boolean simulation, @RequestBody ExecutionOption options) throws Exception {
+        // 실행 Logic
+        //FIXME:  remove me
+        //  String userId = SecurityAwareServletFilter.getUserId();
+        //  GlobalContext.setUserId(userId);
+        //   
+        // request body Option Class 생성
         Object definition = definitionService.getDefinition(filePath, !simulation); //if simulation time, use the version under construction
         System.out.println(definition);
         if(definition instanceof ProcessDefinition){
             ProcessDefinition processDefinition = (ProcessDefinition) definition;
+            processDefinition.afterDeserialization();
             System.out.println(processDefinition);
             org.uengine.kernel.ProcessInstance instance = applicationContext.getBean(
                     org.uengine.kernel.ProcessInstance.class,
@@ -76,15 +88,49 @@ public class InstanceServiceImpl implements InstanceService {
                     null
                     //}
             );
-            System.out.println("Start?");
-            instance.execute();
-            System.out.println("Check");    
+            // instance.putRoleMapping("role","sanghoon01@uengine.org");
+            ProcessInstance mappedInstances = instanceService.mappedOptions(instance, options);
+            mappedInstances.execute();
+
             return null; //TODO: returns HATEOAS _self link instead.
         }
         return null;
-
     }
 
+    // @RequestMapping(value = "/instance", method = {RequestMethod.POST, RequestMethod.PUT})
+    // @Transactional(rollbackFor={Exception.class})
+    // @ProcessTransactional
+    // public InstanceResource runDefinition(@RequestParam("defPath") String filePath, @QueryParam("simulation") boolean simulation) throws Exception {
+    //     // 실행 Logic
+    //     //FIXME:  remove me
+    //     //  String userId = SecurityAwareServletFilter.getUserId();
+    //     //  GlobalContext.setUserId(userId);
+    //     //   
+    //     // request body Option Class 생성
+    //     Object definition = definitionService.getDefinition(filePath, !simulation); //if simulation time, use the version under construction
+    //     System.out.println(definition);
+    //     if(definition instanceof ProcessDefinition){
+    //         ProcessDefinition processDefinition = (ProcessDefinition) definition;
+    //         processDefinition.afterDeserialization();
+    //         System.out.println(processDefinition);
+    //         org.uengine.kernel.ProcessInstance instance = applicationContext.getBean(
+    //                 org.uengine.kernel.ProcessInstance.class,
+    //                 //new Object[]{
+    //                 processDefinition,
+    //                 null,
+    //                 null
+    //                 //}
+    //         );
+    //         // instance.putRoleMapping("role","sanghoon01@uengine.org");
+    //         // ProcessInstance instances = instanceService.mappedOptions(instance, options);
+    //         instance.execute();
+
+    //         return null; //TODO: returns HATEOAS _self link instead.
+    //     }
+    //     return null;
+    // }
+
+    // TODO: Instance Service
 
     @RequestMapping(value = "/instance/{instanceId}/start", method = RequestMethod.POST)
     @ProcessTransactional
@@ -206,9 +252,11 @@ public class InstanceServiceImpl implements InstanceService {
         if (instance != null) {
             return instance;
         }
+        
         instance = applicationContext.getBean(
                 ProcessInstance.class,
-                new Object[]{null, instanceId, null}
+                null, instanceId, null
+                // new Object[]{null, instanceId, null}
         );
         return instance;
 
@@ -406,5 +454,6 @@ public class InstanceServiceImpl implements InstanceService {
 
     @Autowired
     ApplicationContext applicationContext;
+
 
 }

@@ -347,6 +347,8 @@ public class DefinitionServiceImpl implements DefinitionService, DefinitionXMLSe
         //     definitionDeployed = classDefinition;
         // }
          else if (fileExt.endsWith("json")) {
+            // TODO: BPM 작업 - DefinitionWrapper로 definition을 Class 변환
+            // 해당 로직 Process 쪽으로 이동
             DefinitionWrapper definitionWrapper = objectMapper.readValue(definition, DefinitionWrapper.class);
             if (definitionWrapper.getDefinition() == null) {
                 throw new Exception("DefinitionResource is corrupt.");
@@ -431,6 +433,7 @@ public class DefinitionServiceImpl implements DefinitionService, DefinitionXMLSe
 
         Serializable definition = (Serializable) getDefinitionLocal(definitionPath);
         String uEngineProcessXML = Serializer.serialize(definition);
+        // Serializer.serialize()
         return uEngineProcessXML;
         
     }

@@ -11,7 +11,7 @@ import org.uengine.kernel.bpmn.Pool;
 import org.uengine.processmanager.ProcessManagerRemote;
 import org.uengine.processmanager.ProcessTransactionContext;
 import org.uengine.util.ActivityForLoop;
-
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 /**
  * @author Jinyoung Jang
  */
@@ -25,6 +25,7 @@ public class ComplexActivity extends DefaultActivity implements NeedArrangementT
 
 	private static long ERROR_LEVEL_TIMEINMS = 20000;
 
+	@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "_type")	
 	private List<Activity> childActivities;
 	
 	private List<Pool> pools;
@@ -119,9 +120,9 @@ public class ComplexActivity extends DefaultActivity implements NeedArrangementT
 		childActivities = value;
 	}
 
-	public synchronized void setChildActivities(Activity[] childActivities){
-		setChildActivities(childActivities, true);
-	}
+	// public synchronized void setChildActivities(Activity[] childActivities){
+	// 	setChildActivities(childActivities, true);
+	// }
 	public synchronized void addChildActivity(Activity child){
 		addChildActivity(child, true);
 	}

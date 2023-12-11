@@ -82,6 +82,58 @@ public class WorkItemServiceImpl {
         return workItem;
     }
 
+    // TODO: Complete API 생성 /work-item/{taskId}/complete
+    @RequestMapping(value = "/work-item/{taskId}/complete", method = RequestMethod.POST)
+    @org.springframework.transaction.annotation.Transactional
+    @ProcessTransactional // important!
+    public void completeWorkItem(@PathVariable("taskId") String taskId, @RequestBody WorkItemResource workItem) throws Exception {
+        WorklistEntity worklistEntity = worklistRepository.findById(new Long(taskId)).get();
+        String instanceId = worklistEntity.getInstId().toString();
+        ProcessInstance instance = instanceService.getProcessInstanceLocal(instanceId);
+        // instance
+        // instance.getProcessDefinition() == null? -> Setting이 필요한 것 같은데..
+        ProcessDefinition processDefinition = instance.getProcessDefinition();
+
+        HumanActivity humanActivity = ((HumanActivity) processDefinition.getActivity(worklistEntity.getTrcTag()));
+        Map variableChanges = new HashMap<String, Object>();
+
+        if (workItem.getParameterValues() != null
+                && humanActivity.getParameters() != null) {
+            for (ParameterContext parameterContext : humanActivity.getParameters()) {
+                if (parameterContext.getDirection().indexOf("OUT") >= 0
+                        && workItem.getParameterValues().containsKey(parameterContext.getArgument().getText())) {
+
+                    Serializable data = (Serializable) workItem.getParameterValues().get(parameterContext.getArgument().getText());
+                    // if("REST".equals(parameterContext.getVariable().getPersistOption())){
+                    //     RestResourceProcessVariableValue restResourceProcessVariableValue = new RestResourceProcessVariableValue();
+                    //     data = restResourceProcessVariableValue.lightweight(data, parameterContext.getVariable(), instance);
+                    // }
+
+
+                    if(data instanceof Map && ((Map)data).containsKey("_type")){
+                        String typeName = null;
+                        try {
+                            typeName = (String) ((Map) data).get("_type");
+                            Class classType = Thread.currentThread().getContextClassLoader().loadClass(typeName);
+                            data = (Serializable) ProcessServiceApplication.objectMapper.convertValue(data, classType);
+                        }catch (Exception e){
+                            throw new Exception("Error while convert map to type: " + typeName, e);
+                        }
+                    }
+
+                    variableChanges.put(parameterContext.getVariable().getName(),
+                           data );
+                }
+            }
+        }
+        humanActivity.fireReceived(instance, variableChanges);
+        // if (!instance.isRunning(humanActivity.getTracingTag()) && !humanActivity.isNotificationWorkitem()) {
+        //     throw new UEngineException("Illegal completion for workitem [" + humanActivity + ":"
+        //             + humanActivity.getStatus(instance) + "]: Already closed or illegal status.");
+        // }
+
+    }
+
     @RequestMapping(value = "/work-item/{taskId}", method = RequestMethod.POST)
     @org.springframework.transaction.annotation.Transactional
     @ProcessTransactional // important!

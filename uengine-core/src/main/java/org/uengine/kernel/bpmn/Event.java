@@ -6,7 +6,7 @@ import org.uengine.kernel.ProcessInstance;
 import org.uengine.modeling.ElementView;
 
 
-public class Event extends DefaultActivity implements MessageListener{
+public class Event extends DefaultActivity implements MessageListener {
 	
 	public static final String STOP_ACTIVITY = "STOP_ACTIVITY";
 	public static final String PASS_ACTIVITY = "PASS_ACTIVITY";
